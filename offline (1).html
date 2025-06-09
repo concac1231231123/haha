@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DLS</title>
+  <style>
+    #background-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: -1;
+      object-fit: cover;
+      background-size: cover;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding-top: 30vh;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .gif-enter {
+      position: relative;
+      width: 300px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .gif-enter video {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 20px;
+    }
+
+    /* RGB viền chuyển động */
+    .gif-enter::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: -16px;
+      right: -16px;
+      bottom: -16px;
+      border-radius: 36px;
+      z-index: -1;
+
+      background: linear-gradient(
+        270deg,
+        red,
+        orange,
+        yellow,
+        green,
+        cyan,
+        blue,
+        violet,
+        red
+      );
+      background-size: 600% 600%;
+      animation: rgb-border-move 4s linear infinite;
+      filter: blur(18px) brightness(1.6);
+    }
+
+    .gif-enter:hover {
+      transform: scale(1.05);
+    }
+
+    .gif-enter:hover::before {
+      filter: blur(22px) brightness(1.9);
+    }
+
+    /* Phát sáng khi click */
+@keyframes clickFlash {
+  0% {
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow: 0 0 100px 80px rgba(255, 255, 255, 1);
+    filter: brightness(3);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    filter: brightness(1);
+  }
+}
+
+.gif-enter.clicked {
+  animation: clickFlash 0.8s ease-in-out;
+}
+
+  100% {
+    box-shadow: 0 0 0px rgba(255, 255, 255, 0);
+    filter: brightness(1);
+  }
+}
+
+.gif-enter.clicked {
+  animation: clickFlash 0.6s ease-in-out;
+}
+
+
+    .gif-enter.clicked {
+      animation: clickFlash 0.4s ease-in-out;
+    }
+
+    @keyframes rgb-border-move {
+      0% {
+        background-position: 0% 50%;
+      }
+      100% {
+        background-position: 100% 50%;
+      }
+    }
+
+    @keyframes rainbowShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    @keyframes glowPulse {
+      0% {
+        text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000aa, 0 0 30px #ff0000cc;
+      }
+      50% {
+        text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ffaa, 0 0 60px #ff00ffcc;
+      }
+      100% {
+        text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000aa, 0 0 30px #ff0000cc;
+      }
+    }
+
+    @keyframes ledMove {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    .title {
+      position: absolute;
+      width: 100%;
+      top: 10vh;
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      z-index: 1;
+
+      background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet, red);
+      background-size: 400%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+
+      animation: rainbowShift 5s linear infinite, glowPulse 2s ease-in-out infinite;
+      overflow: visible;
+    }
+
+    .title::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      left: -40%;
+      width: 40%;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.7) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      filter: drop-shadow(0 0 8px #fff);
+      transform: skewX(-25deg);
+      animation: ledMove 3s linear infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+
+  <video autoplay muted loop id="background-video">
+    <source src="https://v1.pinimg.com/videos/mc/720p/dd/08/2a/dd082a331b9a6666d97d8b100c0aefda.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="title">không gì đâu đừng nhấn vào</div>
+
+  <div class="container">
+    <a href="https://concac1231231123.github.io/hehe/" target="_self" aria-label="Enter site 1">
+      <div class="gif-enter">
+        <video autoplay muted loop playsinline>
+          <source src="https://v1.pinimg.com/videos/mc/720p/d8/c0/f6/d8c0f67ac412ff08a2e50e52288bf575.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </a>
+
+    <a href="https://concac1231231123.github.io/hmmmm/" target="_self" aria-label="Enter site 2">
+      <div class="gif-enter">
+        <video autoplay muted loop playsinline>
+          <source src="https://v1.pinimg.com/videos/mc/720p/47/95/dc/4795dc2539e5175107bfce9eeda217cd.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </a>
+  </div>
+
+  <script>
+    document.querySelectorAll('.gif-enter').forEach((el) => {
+      el.addEventListener('click', () => {
+        el.classList.add('clicked');
+        setTimeout(() => el.classList.remove('clicked'), 400);
+      });
+    });
+  </script>
+
+</body>
+</html>
